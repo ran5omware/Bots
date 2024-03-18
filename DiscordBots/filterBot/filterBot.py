@@ -28,8 +28,8 @@ async def on_ready():
 
 @bot.event
 async def on_message(message):
-    # if message.author == message.guild.owner:
-    #     return
+    if message.author == message.guild.owner:
+        return
     if message.author == bot.user:
         await asyncio.sleep(120)
         await message.delete()
@@ -47,14 +47,13 @@ async def on_message(message):
                     return
             if flag:
                 await message.delete()
-                await message.channel.send(f"В этом канале доступны только {filters}, другое не разрешено XD")
+                await message.channel.send(f"*В этом канале доступны только* `{filters}`, *Другое не разрешено XD*")
                 return
 
     c.execute("SELECT filters FROM text_filters WHERE channel_id = ?", (message.channel.id,))
     row = c.fetchone()
     if row:
         text_filters = row[0].split(';')
-        print(text_filters)
         flag = True
         for word in text_filters:
             if word == message.content:
@@ -62,7 +61,7 @@ async def on_message(message):
                 return
         if flag:
             await message.delete()
-            await message.channel.send(f"В этом канале доступны только {text_filters}, другое не разрешено XD")
+            await message.channel.send(f"*В этом канале доступны только* `{text_filters}`, *Другое не разрешено XD*")
             return
 
     await bot.process_commands(message)

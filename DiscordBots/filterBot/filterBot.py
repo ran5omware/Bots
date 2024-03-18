@@ -28,8 +28,8 @@ async def on_ready():
 
 @bot.event
 async def on_message(message):
-    if message.author == message.guild.owner:
-        return
+    # if message.author == message.guild.owner:
+    #     return
     if message.author == bot.user:
         await asyncio.sleep(120)
         await message.delete()

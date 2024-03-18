@@ -171,4 +171,4 @@ async def delete_all_filters(ctx, channel_id: str):
     await ctx.send('Готово')
 
 
-bot.run(os.getenv('fpTestBotToken'))
+bot.run(os.getenv('TOKEN'))

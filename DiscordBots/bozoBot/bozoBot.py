@@ -32,14 +32,12 @@ prices = [[0, 40, 80, 120, 160],
           [4275, 5275, 6275, 7275, 8275],
           [9275]]
 
-# global ver
-# ver = 0
-
 global flag
 flag = True
 
+
 @bot.event
-async def on_ready(guild_ids=[1099379230174888037, 912371572587757599]):
+async def on_ready():
     print(f"Bot {bot.user} is ready to work!")
 
     sql.execute("""CREATE TABLE IF NOT EXISTS users (
@@ -69,7 +67,7 @@ async def on_ready(guild_ids=[1099379230174888037, 912371572587757599]):
 
 
 @bot.event
-async def on_member_join(member, guild_ids=[1099379230174888037, 912371572587757599]):
+async def on_member_join(member):
     if flag:
         if sql.execute(f"SELECT id FROM users WHERE id = {member.id}").fetchone() is None:
             sql.execute(f"INSERT INTO users VALUES ('{member}', {member.id}, 1000, {member.guild.id})")
@@ -78,30 +76,6 @@ async def on_member_join(member, guild_ids=[1099379230174888037, 912371572587757
             pass
         role_guest = disnake.utils.get(member.guild.roles, id=1099501007282647130)
         await member.add_roles(role_guest)
-    #     global role_verify
-    #     role_verify = disnake.utils.get(member.guild.roles, id=1104651023819227159)
-    #     await member.add_roles(role_verify)
-    #     global ver
-    #     ver = randint(0, 189273548923)
-    #     await member.send(
-    #         f"Для верификации и получения роли пропиши(To verify and get the role, write) .verify {ver} в канал(into the) verify --> https://discord.com/channels/1099379230174888037/1104664527561297940")
-    # else:
-    #     await member.send("Напиши админам в лс с просьбой выдать роль")
-
-
-# @bot.event
-# async def on_message(message):
-#     if flag:
-#         await bot.process_commands(message)
-#         global ver
-#         if message.content == ".verify " + str(ver):
-#             role_guest = disnake.utils.get(message.author.guild.roles, id=1099501007282647130)
-#             await message.author.remove_roles(role_verify)
-#             await message.author.add_roles(role_guest)
-#             await message.delete()
-#             ver = 190813789317892
-#     else:
-#         pass
 
 
 @bot.slash_command(name='addanime', description='команда позволяющая добавлять аниме в список')
@@ -178,7 +152,8 @@ async def geph(inter: ApplicationCommandInteraction, word: str, count: int):
 
 
 @bot.slash_command(name='calculator')
-async def calc(ctx, operation: str = commands.Param(choices=['+', '-', 'x', '÷', '^', 'div', 'mod']), numb1: int = commands.Param(), numb2: int = commands.Param()):
+async def calc(ctx, operation: str = commands.Param(choices=['+', '-', 'x', '÷', '^', 'div', 'mod']),
+               numb1: int = commands.Param(), numb2: int = commands.Param()):
     try:
         if operation == '+':
             await ctx.send(f'{numb1} + {numb2} = {numb1 + numb2}')
@@ -194,8 +169,8 @@ async def calc(ctx, operation: str = commands.Param(choices=['+', '-', 'x', '÷'
             await ctx.send(f'{numb1} mod {numb2} = {numb1 % numb2}')
         if operation == '^':
             await ctx.send(f'{numb1} ^ {numb2} = {numb1 ** numb2}')
-    except:
-        await ctx.send('Ошибка, проверьте введенные данные и повторите попытку')
+    except Exception as e:
+        await ctx.send(f'{e}, проверьте введенные данные и повторите попытку')
 
 
 @bot.slash_command(name='ip_info')
@@ -217,67 +192,16 @@ async def info_by_ip(ctx, ip):
         }
 
         embed = disnake.Embed(
-                title='IP INFO',
-                description='',
-                colour=0xF0C43F,
-            )
+            title='IP INFO',
+            description='',
+            colour=0xF0C43F,
+        )
         for k, v in data.items():
             print(f'{k} : {v}')
             embed.add_field(name='', value=f'{k}:{v}', inline=True)
         await ctx.send(embed=embed)
     else:
         await ctx.send("Бот на тех.обслуживании")
-
-
-#@bot.slash_command(name='get_code')
-#@commands.has_permissions(administrator=True)
-#async def get_code(ctx):
-#    if flag:
-#        flag2 = False
-#        API = 'https://www.1secmail.com/api/v1/'
-#        domain_list = ["1secmail.com", "1secmail.org", "1secmail.net"]
-#        domain = choice(domain_list)
-#        name = string.ascii_lowercase + string.digits
-#        username = ''.join(choice(name) for i in range(10))
-#        mail = f'{username}@{domain}'
-#        await ctx.send(f'[+] Ваш почтовый адрес: {mail}')
-#        mail_req = requests.get(f'{API}?login={mail.split("@")[0]}&domain={mail.split("@")[1]}')
-#
-#        while flag2 == False:
-#            req_link = f'{API}?action=getMessages&login={mail.split("@")[0]}&domain={mail.split("@")[1]}'
-#            r = requests.get(req_link).json()
-#            length = len(r)
-#            if length == 0:
-#                await ctx.send('[INFO] На почте пока нет новых сообщений. Проверка происходит автоматически каждые 10 секунд!')
-#                time.sleep(10)
-#            else:
-#                id_list = []
-#
-#                for i in r:
-#                    for k, v in i.items():
-#                        if k == 'id':
-#                            id_list.append(v)
-#
-#                await ctx.send(f'[+] У вас {length} входящее!')
-#
-#                for i in id_list:
-#                    read_msg = f'{API}?action=readMessage&login={mail.split("@")[0]}&domain={mail.split("@")[1]}&id={i}'
-#                    r = requests.get(read_msg).json()
-#                   content = r.get('textBody')
-#                    await ctx.send(f'Ваше письмо: {content}')
-#                    flag2 = True
-#            if flag2:
-#                time.sleep(2)
-#                url = 'https://www.1secmail.com/mailbox'
-#                data = {
-#                    'action': 'deleteMailbox',
-#                    'login': mail.split('@')[0],
-#                    'domain': mail.split('@')[1]
-#                }
-#                r = requests.post(url, data=data)
-#                await ctx.send(f'[X] Почтовый адрес {mail} - удален!\n')
-#    else:
-#        await ctx.send("Бот на тех.обслуживании")
 
 
 @bot.slash_command(aliases=['balance', 'cash'])
@@ -393,6 +317,7 @@ async def color(ctx, color: str = commands.Param(
     else:
         await ctx.send("Бот на тех.обслуживании")
 
+
 @bot.slash_command(description="Сыграть в монеточку")
 async def coin(ctx, side: str = commands.Param(choices=["орел(head)", "решка(tails)"])):
     if flag:
@@ -443,6 +368,7 @@ async def coin(ctx, side: str = commands.Param(choices=["орел(head)", "ре�
     else:
         await ctx.send("Бот на тех.обслуживании")
 
+
 @bot.slash_command(description="Камень ножницы бумага")
 async def rock_scissors_paper(ctx, choice: str = commands.Param(
     choices=["Ножницы(Scissors)", "Камень(Rock)", "Бумага(Paper)"])):
@@ -451,7 +377,7 @@ async def rock_scissors_paper(ctx, choice: str = commands.Param(
 
         # draw
 
-        if (bot_choice == 1 and choice == "Ножницы(Scissors)"):
+        if bot_choice == 1 and choice == "Ножницы(Scissors)":
             embed = disnake.Embed(
                 title="Ничья(Draw)",
                 description="",
@@ -460,7 +386,7 @@ async def rock_scissors_paper(ctx, choice: str = commands.Param(
             embed.set_image(url="https://i.imgur.com/2XPrHXu.jpg"),
             await ctx.send(embed=embed)
 
-        if (bot_choice == 2 and choice == "Камень(Rock)"):
+        if bot_choice == 2 and choice == "Камень(Rock)":
             embed = disnake.Embed(
                 title="Ничья(Draw)",
                 description="",
@@ -469,7 +395,7 @@ async def rock_scissors_paper(ctx, choice: str = commands.Param(
             embed.set_image(url="https://i.imgur.com/ACgtTP6.jpg"),
             await ctx.send(embed=embed)
 
-        if (bot_choice == 3 and choice == "Бумага(Paper)"):
+        if bot_choice == 3 and choice == "Бумага(Paper)":
             embed = disnake.Embed(
                 title="Ничья(Draw)",
                 description="",
@@ -480,7 +406,7 @@ async def rock_scissors_paper(ctx, choice: str = commands.Param(
 
         # win
 
-        if (bot_choice == 3 and choice == "Ножницы(Scissors)"):
+        if bot_choice == 3 and choice == "Ножницы(Scissors)":
             embed = disnake.Embed(
                 title="Вы победили и получили 20💎(You win 20💎)",
                 description="подкручено",
@@ -491,7 +417,7 @@ async def rock_scissors_paper(ctx, choice: str = commands.Param(
             sql.execute("UPDATE users SET cash = cash + 20 WHERE id = {}".format(ctx.author.id))
             db.commit()
 
-        if (bot_choice == 2 and choice == "Бумага(Paper)"):
+        if bot_choice == 2 and choice == "Бумага(Paper)":
             embed = disnake.Embed(
                 title="Вы победили и получили 20💎(You win 20💎)",
                 description="подкручено",
@@ -502,7 +428,7 @@ async def rock_scissors_paper(ctx, choice: str = commands.Param(
             sql.execute("UPDATE users SET cash = cash + 20 WHERE id = {}".format(ctx.author.id))
             db.commit()
 
-        if (bot_choice == 1 and choice == "Камень(Rock)"):
+        if bot_choice == 1 and choice == "Камень(Rock)":
             embed = disnake.Embed(
                 title="Вы победили и получили 20💎(You win 20💎)",
                 description="подкручено",
@@ -515,7 +441,7 @@ async def rock_scissors_paper(ctx, choice: str = commands.Param(
 
         # lose
 
-        if (bot_choice == 3 and choice == "Камень(Rock)"):
+        if bot_choice == 3 and choice == "Камень(Rock)":
             embed = disnake.Embed(
                 title="Вы проиграли 20💎(You lose 20💎)",
                 description="неповезло",
@@ -526,7 +452,7 @@ async def rock_scissors_paper(ctx, choice: str = commands.Param(
             sql.execute("UPDATE users SET cash = cash - 20 WHERE id = {}".format(ctx.author.id))
             db.commit()
 
-        if (bot_choice == 1 and choice == "Бумага(Paper)"):
+        if bot_choice == 1 and choice == "Бумага(Paper)":
             embed = disnake.Embed(
                 title="Вы проиграли 20💎(You lose 20💎)",
                 description="неповезло",
@@ -537,7 +463,7 @@ async def rock_scissors_paper(ctx, choice: str = commands.Param(
             sql.execute("UPDATE users SET cash = cash - 20 WHERE id = {}".format(ctx.author.id))
             db.commit()
 
-        if (bot_choice == 2 and choice == "Ножницы(Scissors)"):
+        if bot_choice == 2 and choice == "Ножницы(Scissors)":
             embed = disnake.Embed(
                 title="Вы проиграли 20💎(You lose 20💎)",
                 description="неповезло",
@@ -549,6 +475,7 @@ async def rock_scissors_paper(ctx, choice: str = commands.Param(
             db.commit()
     else:
         await ctx.send("Бот на тех.обслуживании")
+
 
 @bot.slash_command(description="Узнать цену буста в r6")
 async def price(ctx, now: str = commands.Param(
@@ -662,6 +589,4 @@ async def price(ctx, now: str = commands.Param(
         await ctx.send("Бот на тех.обслуживании")
 
 
-# webserver.keep_alive()
-# bot.run(os.getenv("TOKEN"))
 bot.run(os.getenv('TOKEN'))

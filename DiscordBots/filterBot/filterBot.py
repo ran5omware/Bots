@@ -55,10 +55,9 @@ async def on_message(message):
     if row:
         text_filters = row[0].split(';')
         flag = True
-        for word in text_filters:
-            if word == message.content:
-                flag = False
-                return
+        if message.content.split(' ')[0] in text_filters:
+            flag = False
+            return
         if flag:
             await message.delete()
             await message.channel.send(f"*В этом канале доступны только* `{text_filters}`, *Другое не разрешено XD*")

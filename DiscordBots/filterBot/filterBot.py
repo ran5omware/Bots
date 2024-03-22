@@ -30,38 +30,40 @@ async def on_ready():
 async def on_message(message):
     if message.author == message.guild.owner:
         return
-    if message.author == bot.user:
+    elif message.author == bot.user:
         await asyncio.sleep(120)
         await message.delete()
         return
-
-    c.execute("SELECT filters FROM link_filters WHERE channel_id = ?", (message.channel.id,))
-    row = c.fetchone()
-    if row:
-        filters = row[0].split(';')
-        if message.content.startswith("http://") or message.content.startswith("https://"):
-            flag = True
-            for word in filters:
-                if word == message.content.split('/')[2]:
-                    flag = False
+    elif message.author.bot:
+        return
+    else:
+        c.execute("SELECT filters FROM link_filters WHERE channel_id = ?", (message.channel.id,))
+        row = c.fetchone()
+        if row:
+            filters = row[0].split(';')
+            if message.content.startswith("http://") or message.content.startswith("https://"):
+                flag = True
+                for word in filters:
+                    if word == message.content.split('/')[2]:
+                        flag = False
+                        return
+                if flag:
+                    await message.delete()
+                    await message.channel.send(f"*В этом канале доступны только* `{filters}`, *Другое не разрешено XD*")
                     return
+
+        c.execute("SELECT filters FROM text_filters WHERE channel_id = ?", (message.channel.id,))
+        row = c.fetchone()
+        if row:
+            text_filters = row[0].split(';')
+            flag = True
+            if message.content.split(' ')[0] in text_filters:
+                flag = False
+                return
             if flag:
                 await message.delete()
-                await message.channel.send(f"*В этом канале доступны только* `{filters}`, *Другое не разрешено XD*")
+                await message.channel.send(f"*В этом канале доступны только* `{text_filters}`, *Другое не разрешено XD*")
                 return
-
-    c.execute("SELECT filters FROM text_filters WHERE channel_id = ?", (message.channel.id,))
-    row = c.fetchone()
-    if row:
-        text_filters = row[0].split(';')
-        flag = True
-        if message.content.split(' ')[0] in text_filters:
-            flag = False
-            return
-        if flag:
-            await message.delete()
-            await message.channel.send(f"*В этом канале доступны только* `{text_filters}`, *Другое не разрешено XD*")
-            return
 
     await bot.process_commands(message)
 

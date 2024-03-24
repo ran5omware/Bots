@@ -18,7 +18,34 @@ c.execute('''CREATE TABLE IF NOT EXISTS text_filters
 c.execute('''CREATE TABLE IF NOT EXISTS link_filters 
              (channel_id INTEGER PRIMARY KEY, filters TEXT)''')
 
+c.execute('''CREATE TABLE IF NOT EXISTS roles 
+             (role TEXT)''')
+
 conn.commit()
+
+
+def link_checker(message):
+    c.execute("SELECT filters FROM link_filters WHERE channel_id = ?", (message.channel.id,))
+    row = c.fetchone()
+    if row:
+        filters = row[0].split(';')
+        if message.content.startswith("http://") or message.content.startswith("https://"):
+            flag = True
+            for word in filters:
+                if word == message.content.split('/')[2]:
+                    flag = False
+            return flag
+
+
+def text_checker(message):
+    c.execute("SELECT filters FROM text_filters WHERE channel_id = ?", (message.channel.id,))
+    row = c.fetchone()
+    if row:
+        text_filters = row[0].split(';')
+        flag = True
+        if message.content.split(' ')[0] in text_filters:
+            flag = False
+        return flag
 
 
 @bot.event
@@ -28,7 +55,15 @@ async def on_ready():
 
 @bot.event
 async def on_message(message):
-    if message.author == message.guild.owner:
+    for role in message.author.roles:
+        c.execute("SELECT * FROM roles WHERE role=?", (role.id,))
+        result = c.fetchone()
+    if result:
+        if not text_checker(message) and not link_checker(message):
+            await message.delete()
+            await message.channel.send(f'*Эта команда доступна только для авторизованных участников сервера, пожалуйста авторизуйтесь и получите роль "Участник"')
+        return
+    elif message.author == message.guild.owner:
         return
     elif message.author == bot.user:
         await asyncio.sleep(120)
@@ -41,26 +76,16 @@ async def on_message(message):
         row = c.fetchone()
         if row:
             filters = row[0].split(';')
-            if message.content.startswith("http://") or message.content.startswith("https://"):
-                flag = True
-                for word in filters:
-                    if word == message.content.split('/')[2]:
-                        flag = False
-                        return
-                if flag:
-                    await message.delete()
-                    await message.channel.send(f"*В этом канале доступны только* `{filters}`, *Другое не разрешено XD*")
-                    return
+            if link_checker(message):
+                await message.delete()
+                await message.channel.send(f"*В этом канале доступны только* `{filters}`, *Другое не разрешено XD*")
+                return
 
         c.execute("SELECT filters FROM text_filters WHERE channel_id = ?", (message.channel.id,))
         row = c.fetchone()
         if row:
             text_filters = row[0].split(';')
-            flag = True
-            if message.content.split(' ')[0] in text_filters:
-                flag = False
-                return
-            if flag:
+            if text_checker(message):
                 await message.delete()
                 await message.channel.send(f"*В этом канале доступны только* `{text_filters}`, *Другое не разрешено XD*")
                 return
@@ -88,6 +113,36 @@ async def add_text_filter(ctx, channel_id: str, filter_text: str):
         c.execute("INSERT INTO text_filters (channel_id, filters) VALUES (?, ?)", (channel_id, filter_text))
         conn.commit()
         await ctx.send('Готово')
+
+
+@bot.slash_command(description="добавить гостевые роли")
+async def add_guest_roles(ctx, role: disnake.Role):
+
+    if ctx.author != ctx.guild.owner:
+        await ctx.send('Команда только для создателя')
+        return
+
+    c.execute("INSERT INTO roles (role) VALUES (?)", (role.id,))
+    conn.commit()
+    await ctx.send('Готово')
+
+
+@bot.slash_command(description="удалить гостевые роли")
+async def delete_guest_roles(ctx, role: disnake.Role):
+
+    if ctx.author != ctx.guild.owner:
+        await ctx.send('Команда только для создателя')
+        return
+
+    c.execute("SELECT * FROM roles WHERE role=?", (role.id,))
+    result = c.fetchone()
+
+    if result:
+        c.execute("DELETE FROM roles WHERE role=?", (role.id,))
+        conn.commit()
+        await ctx.send('Роль удалена из базы данных')
+    else:
+        await ctx.send('Роль не найдена в базе данных')
 
 
 @bot.slash_command(description="добавить ссылку в фильтр")

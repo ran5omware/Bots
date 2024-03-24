@@ -21,6 +21,9 @@ c.execute('''CREATE TABLE IF NOT EXISTS link_filters
 c.execute('''CREATE TABLE IF NOT EXISTS roles 
              (role TEXT)''')
 
+c.execute('''CREATE TABLE IF NOT EXISTS guest_filters 
+             (server INTEGER PRIMARY KEY, filters TEXT)''')
+
 conn.commit()
 
 
@@ -38,13 +41,24 @@ def link_checker(message):
 
 
 def text_checker(message):
-    c.execute("SELECT filters FROM text_filters WHERE channel_id = ?", (message.channel.id,))
+    c.execute("SELECT filters FROM text_filters WHERE server = ?", (1,))
     row = c.fetchone()
     if row:
         text_filters = row[0].split(';')
         flag = True
         if message.content.split(' ')[0] in text_filters:
             flag = False
+        return flag
+
+
+def guest_checker(message):
+    c.execute("SELECT filters FROM guest_filters WHERE channel_id = ?", (message.channel.id,))
+    row = c.fetchall()
+    if row:
+        guest_filters = row[0].split(';')
+        flag = False
+        if message.content.split(' ')[0] in guest_filters:
+            flag = True
         return flag
 
 
@@ -59,10 +73,9 @@ async def on_message(message):
         c.execute("SELECT * FROM roles WHERE role=?", (role.id,))
         result = c.fetchone()
     if result:
-        if (text_checker(message) is not None) or (link_checker(message) is not None):
-            if not text_checker(message) and not link_checker(message):
-                await message.delete()
-                await message.channel.send(f'*Эта команда доступна только для авторизованных участников сервера, пожалуйста авторизуйтесь и получите роль "Участник"')
+        if guest_checker(message):
+            await message.delete()
+            await message.channel.send(f'*Эта команда доступна только для авторизованных участников сервера, пожалуйста авторизуйтесь и получите роль "Участник"')
         return
     elif message.author == message.guild.owner:
         return
@@ -73,23 +86,24 @@ async def on_message(message):
     elif message.author.bot:
         return
     else:
-        c.execute("SELECT filters FROM link_filters WHERE channel_id = ?", (message.channel.id,))
-        row = c.fetchone()
-        if row:
-            filters = row[0].split(';')
-            if link_checker(message):
-                await message.delete()
-                await message.channel.send(f"*В этом канале доступны только* `{filters}`, *Другое не разрешено XD*")
-                return
-
-        c.execute("SELECT filters FROM text_filters WHERE channel_id = ?", (message.channel.id,))
-        row = c.fetchone()
-        if row:
-            text_filters = row[0].split(';')
-            if text_checker(message):
-                await message.delete()
-                await message.channel.send(f"*В этом канале доступны только* `{text_filters}`, *Другое не разрешено XD*")
-                return
+        if message.content.startswith("http://") or message.content.startswith("https://"):
+            c.execute("SELECT filters FROM link_filters WHERE channel_id = ?", (message.channel.id,))
+            row = c.fetchone()
+            if row:
+                filters = row[0].split(';')
+                if link_checker(message):
+                    await message.delete()
+                    await message.channel.send(f"*В этом канале доступны только* `{filters}`, *Другое не разрешено XD*")
+                    return
+        else:
+            c.execute("SELECT filters FROM text_filters WHERE channel_id = ?", (message.channel.id,))
+            row = c.fetchone()
+            if row:
+                text_filters = row[0].split(';')
+                if text_checker(message):
+                    await message.delete()
+                    await message.channel.send(f"*В этом канале доступны только* `{text_filters}`, *Другое не разрешено XD*")
+                    return
 
     await bot.process_commands(message)
 
@@ -112,6 +126,27 @@ async def add_text_filter(ctx, channel_id: str, filter_text: str):
         await ctx.send('Готово')
     else:
         c.execute("INSERT INTO text_filters (channel_id, filters) VALUES (?, ?)", (channel_id, filter_text))
+        conn.commit()
+        await ctx.send('Готово')
+
+
+@bot.slash_command(description="добавить гостевой фильтр")
+async def add_guest_filter(ctx, filter_text: str):
+
+    if ctx.author != ctx.guild.owner:
+        await ctx.send('Команда только для создателя')
+        return
+
+    c.execute("SELECT filters FROM guest_filters WHERE server = ?", (1,))
+    row = c.fetchone()
+    if row:
+        old_filters = row[0]
+        new_filters = old_filters + ";" + filter_text
+        c.execute("UPDATE guest_filters SET filters = ? WHERE server = ?", (new_filters, 1))
+        conn.commit()
+        await ctx.send('Готово')
+    else:
+        c.execute("INSERT INTO guest_filters (server, filters) VALUES (?, ?)", (1, filter_text))
         conn.commit()
         await ctx.send('Готово')
 
@@ -190,6 +225,27 @@ async def delete_filter(ctx, channel_id: str, filters: str):
         await ctx.send('Фильтров для этого канала и не было')
 
 
+@bot.slash_command(description="удалить гостевой фильтр (выбор)")
+async def delete_guest_filter(ctx, filters: str):
+
+    if ctx.author != ctx.guild.owner:
+        await ctx.send('Команда только для создателя')
+        return
+
+    c.execute("SELECT filters FROM guest_filters WHERE server = ?", (1,))
+    row = c.fetchone()
+    if row:
+        text_filters = row[0].split(';')
+        new_text_filters = [filter_word for filter_word in text_filters if filter_word not in filters.split(';')]
+        new_text_filters_str = ';'.join(new_text_filters)
+        c.execute("UPDATE guest_filters SET filters = ? WHERE server = ?", (new_text_filters_str, 1))
+        conn.commit()
+
+        await ctx.send('Готово')
+    else:
+        await ctx.send('Фильтров и не было')
+
+
 @bot.slash_command(description="удалить фильтр ссылок (выбор)")
 async def delete_link_filter(ctx, channel_id: str, filters: str):
     channel_id = int(channel_id)
@@ -222,6 +278,19 @@ async def delete_all_filters(ctx, channel_id: str):
 
     c.execute("DELETE FROM text_filters WHERE channel_id = ?", (channel_id,))
     c.execute("DELETE FROM link_filters WHERE channel_id = ?", (channel_id,))
+    conn.commit()
+
+    await ctx.send('Готово')
+
+
+@bot.slash_command(description="удалить все фильтры для канала")
+async def delete_all_guest_filters(ctx):
+
+    if ctx.author != ctx.guild.owner:
+        await ctx.send('Команда только для создателя')
+        return
+
+    c.execute("DELETE FROM guest_filters WHERE server= ?", (1,))
     conn.commit()
 
     await ctx.send('Готово')

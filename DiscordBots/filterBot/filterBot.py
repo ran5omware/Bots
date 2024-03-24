@@ -59,9 +59,10 @@ async def on_message(message):
         c.execute("SELECT * FROM roles WHERE role=?", (role.id,))
         result = c.fetchone()
     if result:
-        if not text_checker(message) and not link_checker(message):
-            await message.delete()
-            await message.channel.send(f'*Эта команда доступна только для авторизованных участников сервера, пожалуйста авторизуйтесь и получите роль "Участник"')
+        if (text_checker(message) is not None) or (link_checker(message) is not None):
+            if not text_checker(message) and not link_checker(message):
+                await message.delete()
+                await message.channel.send(f'*Эта команда доступна только для авторизованных участников сервера, пожалуйста авторизуйтесь и получите роль "Участник"')
         return
     elif message.author == message.guild.owner:
         return

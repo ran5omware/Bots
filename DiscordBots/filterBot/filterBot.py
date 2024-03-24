@@ -41,7 +41,7 @@ def link_checker(message):
 
 
 def text_checker(message):
-    c.execute("SELECT filters FROM text_filters WHERE server = ?", (1,))
+    c.execute("SELECT filters FROM text_filters WHERE channel_id = ?", (message.channel.id,))
     row = c.fetchone()
     if row:
         text_filters = row[0].split(';')
@@ -52,12 +52,12 @@ def text_checker(message):
 
 
 def guest_checker(message):
-    c.execute("SELECT filters FROM guest_filters WHERE channel_id = ?", (message.channel.id,))
-    row = c.fetchall()
+    c.execute("SELECT filters FROM guest_filters WHERE server = ?", (1,))
+    row = c.fetchone()
     if row:
         guest_filters = row[0].split(';')
         flag = False
-        if message.content.split(' ')[0] in guest_filters:
+        if (message.content.split(' ')[0] in guest_filters) or ('/' in message.content):
             flag = True
         return flag
 
@@ -69,9 +69,12 @@ async def on_ready():
 
 @bot.event
 async def on_message(message):
+    result = False
     for role in message.author.roles:
         c.execute("SELECT * FROM roles WHERE role=?", (role.id,))
         result = c.fetchone()
+        if result:
+            break
     if result:
         if guest_checker(message):
             await message.delete()
@@ -283,7 +286,7 @@ async def delete_all_filters(ctx, channel_id: str):
     await ctx.send('Готово')
 
 
-@bot.slash_command(description="удалить все фильтры для канала")
+@bot.slash_command(description="удалить все фильтры гостей")
 async def delete_all_guest_filters(ctx):
 
     if ctx.author != ctx.guild.owner:

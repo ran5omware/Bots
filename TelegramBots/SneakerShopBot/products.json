@@ -1,0 +1,108 @@
+{
+    "brand": {
+        "Nike": {
+            "FQ8225-100": [
+                "Nike Air Trainer 1 Essential",
+                "20999",
+                "10",
+                "0"
+            ],
+            "DD3111-100": [
+                "Nike Blazer Mid 77 Jumbo",
+                "18999",
+                "7",
+                "0"
+            ],
+            "DM1122-005": [
+                "Nike LeBron Witness",
+                "18999",
+                "12",
+                "0"
+            ],
+            "FJ4210-001": [
+                "Nike Dunk High Retro",
+                "22999",
+                "5",
+                "0"
+            ],
+            "DJ9158-200": [
+                "Nike Air Force 1 Mid 07",
+                "20999",
+                "15",
+                "0"
+            ]
+        },
+        "adidas": {
+            "IE7175": [
+                "adidas Forum Low",
+                "14999",
+                "20",
+                "0"
+            ],
+            "FZ2085": [
+                "adidas Forum Mid",
+                "11999",
+                "20",
+                "0"
+            ],
+            "IF0469": [
+                "adidas BYW Select",
+                "20999",
+                "8",
+                "0"
+            ],
+            "HQ1006": [
+                "adidas Rose Son of Chi",
+                "18999",
+                "11",
+                "0"
+            ],
+            "GW9525": [
+                "adidas Yeezy Boost 700 MNVN",
+                "19999",
+                "9",
+                "0"
+            ]
+        },
+        "PUMA": {
+            "39592001": [
+                "PUMA Morphic Retro",
+                "13999",
+                "19",
+                "0"
+            ],
+            "39590802": [
+                "PUMA Velophasis Always On",
+                "16999",
+                "18",
+                "0"
+            ],
+            "37786001": [
+                "PUMA Explore Nitro Mid GORE-TEX",
+                "17999",
+                "15",
+                "0"
+            ],
+            "37783801": [
+                "PUMA Voyage Nitro 3 GORE-TEX",
+                "18999",
+                "15",
+                "0"
+            ],
+            "38799803": [
+                "PUMA Slipstream Hi",
+                "14999",
+                "14",
+                "0"
+            ]
+        },
+        "Reebok": {
+            "100208160": [
+                "Reebok Zig Kinetica 2.5 Edge X",
+                "14999",
+                "12",
+                "0"
+            ]
+        }
+    }
+}

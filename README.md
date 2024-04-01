@@ -13,6 +13,7 @@ This project contains various bots created by me for Discord and Telegram. Here 
    - Dance studio bot
    - Artist group bot
    - Sneaker shop bot
+   - Movie selection bot
 
 ### How to Use
 

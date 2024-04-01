@@ -9,7 +9,7 @@ This project contains various bots created by me for Discord and Telegram. Here 
    - University group bot
    - Personal use bot with various commands
 
-2. **Telegram Bots** (currently unavailable):
+2. **Telegram Bots**:
    - Dance studio bot
    - Artist group bot
    - Sneaker shop bot
@@ -51,7 +51,7 @@ Thank you for your interest in the project! Stay tuned. 🚀
    - Бот для группы в универе
    - Бот с разлиными командами для личного пользования
 
-2. **Telegram Боты**(временно отсутствуют):
+2. **Telegram Боты**:
    - Бот для студии танцев
    - Бот для группы художника
    - Бот для магазина кросовок

@@ -96,11 +96,6 @@ async def on(ctx):
     await ctx.send("done")
 
 
-@bot.slash_command(name='yarik_gay')
-async def on(ctx):
-    await ctx.send("Сам ты gay")
-
-
 @bot.slash_command(name='calculator')
 async def calc(ctx, operation: str = commands.Param(choices=['+', '-', 'x', '÷', '^']), numb1: int = commands.Param(),
                numb2: int = commands.Param()):

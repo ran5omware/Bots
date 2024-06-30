@@ -40,7 +40,7 @@ The project is developed and maintained by My Name.
 
 ### License
 
-This project is licensed under the MIT License - see the `LICENSE` file for details.
+This project is licensed under the MIT License - see the [`LICENSE`](https://github.com/ran5omware/Works?tab=MIT-1-ov-file) file for details.
 
 Thank you for your interest in the project! Stay tuned. 🚀
 
@@ -90,7 +90,7 @@ Thank you for your interest in the project! Stay tuned. 🚀
 
 ### Лицензия
 
-Этот проект лицензирован под лицензией MIT - подробности см. в файле `LICENSE`.
+Этот проект лицензирован под лицензией MIT - подробности см. в файле [`LICENSE`](https://github.com/ran5omware/Works?tab=MIT-1-ov-file).
 
 Благодарим за ваш интерес к проекту! Оставайтесь на связи. 🚀
 

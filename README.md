@@ -1,8 +1,8 @@
-## Project "My works"
+## Project "My Works"
 
-This project contains various sites, bots created by me for Discord and Telegram. Here I share different tools and functionalities that can be useful for communication and community organization in Discord and Telegram.
+This project contains various bots created by me for Discord and Telegram, as well as a GUI application and two websites. Here, I share different tools and functionalities that can be useful for communication and community organization in Discord and Telegram, as well as other applications and websites.
 
-### Available Bots
+### Available Bots and Applications
 
 1. **Discord Bots**:
    - Message filtering bot
@@ -15,13 +15,20 @@ This project contains various sites, bots created by me for Discord and Telegram
    - Sneaker shop bot
    - Movie selection bot
 
+3. **GUI Application**:
+   - Banking application using Tkinter
+
+4. **Websites**:
+   - News blog about bots
+   - Computer salon website
+
 ### How to Use
 
-1. To install and run the bots, you need to clone the repository to your computer.
+1. To install and run the bots or applications, you need to clone the repository to your computer.
 2. Install the dependencies listed in the `requirements.txt` file.
-3. Create and configure a bot in Discord Developer Portal or Telegram BotFather.
+3. For the bots, create and configure a bot in Discord Developer Portal or Telegram BotFather.
 4. Specify your bot's token in the project's code.
-5. Run the bot using the command `python bot_file.py`.
+5. Run the bot or application using the command `python bot_file.py`, site `python app.py` or `python main.py` for the GUI application.
 
 ### Contribution
 
@@ -43,9 +50,9 @@ Thank you for your interest in the project! Stay tuned. 🚀
 
 ## Проект "Мои работы"
 
-Данный проект содержит различные сайты, боты, созданные мной для Discord и Telegram. Здесь я делюсь различными инструментами и функционалом, который могут быть полезными для коммуникации и организации сообществ в дискорде и телеграме.
+Данный проект содержит различные боты, созданные мной для Discord и Telegram, а также GUI-приложение и два сайта. Здесь я делюсь различными инструментами и функционалом, который могут быть полезными для коммуникации и организации сообществ в дискорде и телеграме, а также другими приложениями и сайтами.
 
-### Доступные боты
+### Доступные боты и приложения
 
 1. **Discord Боты**:
    - Бот для фильтрации сообщений
@@ -58,13 +65,20 @@ Thank you for your interest in the project! Stay tuned. 🚀
    - Бот для магазина кросовок
    - Бот для выбора фильма
 
+3. **GUI Приложение**:
+   - Банковское приложение на Tkinter
+
+4. **Сайты**:
+   - Новостной блог о ботах
+   - Сайт компьютерного салона
+
 ### Как использовать
 
-1. Для установки и запуска ботов необходимо клонировать репозиторий на свой компьютер.
+1. Для установки и запуска ботов или приложений необходимо клонировать репозиторий на свой компьютер.
 2. Установить зависимости, указанные в файле `requirements.txt`.
-3. Создать и настроить бота в Discord Developer Portal или Telegram BotFather.
+3. Для ботов создать и настроить бота в Discord Developer Portal или Telegram BotFather.
 4. Указать токен вашего бота в коде проекта.
-5. Запустить бота с помощью команды `python bot_file.py`.
+5. Запустить бота или приложение с помощью команды `python bot_file.py`, сайт `python app.py` или `python main.py` для GUI приложения.
 
 ### Вклад
 

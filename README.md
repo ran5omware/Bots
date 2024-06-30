@@ -1,6 +1,6 @@
-## Project "My Discord and Telegram Bots"
+## Project "My works"
 
-This project contains various bots created by me for Discord and Telegram. Here I share different tools and functionalities that can be useful for communication and community organization in Discord and Telegram.
+This project contains various sites, bots created by me for Discord and Telegram. Here I share different tools and functionalities that can be useful for communication and community organization in Discord and Telegram.
 
 ### Available Bots
 
@@ -41,9 +41,9 @@ Thank you for your interest in the project! Stay tuned. 🚀
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-## Проект "Мои Discord и Telegram Боты"
+## Проект "Мои работы"
 
-Данный проект содержит различные боты, созданные мной для Discord и Telegram. Здесь я делюсь различными инструментами и функционалом, который могут быть полезными для коммуникации и организации сообществ в дискорде и телеграме.
+Данный проект содержит различные сайты, боты, созданные мной для Discord и Telegram. Здесь я делюсь различными инструментами и функционалом, который могут быть полезными для коммуникации и организации сообществ в дискорде и телеграме.
 
 ### Доступные боты
 

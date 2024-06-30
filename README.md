@@ -28,7 +28,7 @@ This project contains various bots created by me for Discord and Telegram, as we
 2. Install the dependencies listed in the `requirements.txt` file.
 3. For the bots, create and configure a bot in Discord Developer Portal or Telegram BotFather.
 4. Specify your bot's token in the project's code.
-5. Run the bot or application using the command `python bot_file.py`, site `python app.py` or `python main.py` for the GUI application.
+5. Run the bot or application using the command `python bot_file.py`, `python app.py` for site or `python main.py` for the GUI application.
 
 ### Contribution
 
@@ -78,7 +78,7 @@ Thank you for your interest in the project! Stay tuned. 🚀
 2. Установить зависимости, указанные в файле `requirements.txt`.
 3. Для ботов создать и настроить бота в Discord Developer Portal или Telegram BotFather.
 4. Указать токен вашего бота в коде проекта.
-5. Запустить бота или приложение с помощью команды `python bot_file.py`, сайт `python app.py` или `python main.py` для GUI приложения.
+5. Запустить бота или приложение с помощью команды `python bot_file.py`, `python app.py` для сайта или `python main.py` для GUI приложения.
 
 ### Вклад
 

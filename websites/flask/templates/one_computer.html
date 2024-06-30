@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>{% block title %} Сведения о товаре {% endblock %}</h1>
+<div>
+    <h3>ИД: {{ computer['id'] }}</h3>
+    <h3>Процессор: {{ computer['CPU'] }}</h3>
+    <h3>Видеокарта: {{ computer['GPU'] }}</h3>
+    <h3>Материнская плата: {{ computer['Motherboard'] }}</h3>
+    <h3>ОЗУ: {{ computer['RAM'] }}</h3>
+    <h3>Корпус: {{ computer['Case'] }}</h3>
+    <h3>Доступность: {{ computer['available'] }}</h3>
+    <h3>ИД клиента: {{ computer['client_id'] }}</h3>
+    <h3>Цена: {{ computer['price'] }}</h3>
+</div>
+
+<button class="bg-danger">
+    <a style="color: white;" href="{{ url_for('remove_row', table='computers', row_id=computer['id']) }} ">Удалить товар</a>
+</button>
+
+
+
+{% endblock %}
+

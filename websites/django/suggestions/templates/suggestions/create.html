@@ -1,0 +1,17 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}Форма по созданию предложения{% endblock %}
+
+{% block content %}
+    <div class="features">
+        <h1>Форма по созданию предложения</h1>
+        <form method="post">
+            {% csrf_token %}<br>
+            {{ form.title }}<br>
+            {{ form.text }}<br>
+            {{ form.date }}<br>
+            <span>{{ error }}</span>
+            <button class="btn btn-success" type="submit">Предложить</button>
+        </form>
+    </div>
+{% endblock %}

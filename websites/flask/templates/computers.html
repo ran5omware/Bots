@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>{% block title %} Компьютеры {% endblock %}</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Процессор</th>
+            <th scope="col">Видеокарта</th>
+            <th scope="col">Материнская плата</th>
+            <th scope="col">ОЗУ</th>
+            <th scope="col">Корпус</th>
+            <th scope="col">Доступность</th>
+            <th scope="col">ИД клиента</th>
+            <th scope="col">Цена</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for elem in computers %}
+            <tr>
+                <td scope="col">{{ elem['id'] }}</td>
+                <td scope="col">{{ elem['CPU'] }}</td>
+                <td scope="col">{{ elem['GPU'] }}</td>
+                <td scope="col">{{ elem['Motherboard'] }}</td>
+                <td scope="col">{{ elem['RAM'] }}</td>
+                <td scope="col">{{ elem['Case'] }}</td>
+                <td scope="col">{{ elem['available'] }}</td>
+                <td scope="col">{{ elem['client_id'] }}</td>
+                <td scope="col">{{ elem['price'] }}</td>
+                <td scope="col">
+                    <a href="{{ url_for('one_computer', id=elem['id']) }}">Подробнее</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<button class="bg-primary">
+    <a style="color: white;" href="{{ url_for('create_computer') }}">Добавить товар</a>
+</button>
+
+
+{% endblock %}

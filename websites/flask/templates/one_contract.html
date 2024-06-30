@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>{% block title %} Сведения о контракте № {{ contract['number'] }} {% endblock %}</h1>
+<div>
+    <h3>Дата: {{contract['date']}}</h3>
+    <h3>Тип сделки: {{contract['deal_type']}}</h3>
+    <h3>Статус: {{contract['deal_status']}}</h3>
+    <h3>Начальная цена: {{contract['start_price']}}</h3>
+    <h3>Скидка: {{contract['discount']}}</h3>
+    <h3>Id товара: {{contract['id']}}</h3>
+    <h3>Конечная цена: {{contract['finall_price']}}</h3>
+    <h3>Id клиента: {{contract['client_id']}}</h3>
+    <h3>Id сотрудника: {{contract['employee_id']}}</h3>
+</div>
+<form method="POST">
+    <button class="bg-danger" onclick="" >
+        <a style="color: white;" href="{{ url_for('remove_row', table='Contracts', row_id=contract['id_contract']) }}">Удалить накладную</a>
+    </button>
+</form>
+{% endblock %}

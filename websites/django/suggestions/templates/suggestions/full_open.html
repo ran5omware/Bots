@@ -1,0 +1,11 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}{{ suggestion.title }}{% endblock %}
+
+{% block content %}
+    <div class="features">
+        <h1>{{ suggestion.title }}</h1>
+      <p>{{ suggestion.date }}</p>
+        <p>{{ suggestion.text }}</p>
+    </div>
+{% endblock %}

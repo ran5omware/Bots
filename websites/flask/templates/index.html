@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>{% block title %} Главная страница {% endblock %}</h1>
+    <hr>
+    <button class="bg-primary">
+        <a style="color: white;" href="{{ url_for('create_report') }}">Сгенирировать "Отчет о последней продаже"</a>
+    </button>
+{% endblock %}

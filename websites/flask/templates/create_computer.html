@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>{% block title %} Создать товар {% endblock %}</h1>
+<form method="POST">
+    <br>
+    <label for="CPU">Процессор:</label>
+    <input type="text" id="CPU" name="CPU">
+    <br>
+    <label for="GPU">Видеокарта:</label>
+    <input type="text" id="GPU" name="GPU">
+    <br>
+    <label for="Motherboard">Материнская плата:</label>
+    <input type="text" id="Motherboard" name="Motherboard">
+    <br>
+    <label for="RAM">ОЗУ:</label>
+    <input type="text" id="RAM" name="RAM">
+    <br>
+    <label for="Case">Корпус:</label>
+    <input type="text" id="Case" name="Case">
+    <br>
+    <label for="available">Доступность:</label>
+    <input type="text" id="available" name="available">
+    <br>
+    <label for="client_id">ИД клиента:</label>
+    <input type="text" id="client_id" name="client_id">
+    <br>
+    <label for="price">Цена:</label>
+    <input type="text" id="price" name="price">
+    <br>
+    <br>
+    <button class="bg-primary" type="submit">
+        <a style="color: white;">Сохранить</a>
+    </button>
+</form>
+{% endblock %}
+

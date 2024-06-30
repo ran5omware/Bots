@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>{% block title %} Сведения о сотруднике {{ employee['name'] }} {% endblock %}</h1>
+<div>
+    <h3>Почта: {{employee['email']}}</h3>
+    <h3>Номер телефона: {{employee['phone_number']}}</h3>
+    <h3>Должность: {{employee['position']}}</h3>
+    <h3>Подразделение: {{employee['department']}}</h3>
+    <h3>Ид начальника: {{employee['chief_id']}}</h3>
+</div>
+<!-- -->
+
+<form method="POST">
+    <button class="bg-danger" onclick="" >
+        <a style="color: white;" href="{{ url_for('remove_row', table='employees', row_id=employee['id']) }}">Удалить сотрудника</a>
+    </button>
+</form>
+{% endblock %}

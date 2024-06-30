@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>{% block title %} Создать клиента {% endblock %}</h1>
+<form method="POST">
+    {{ name }}
+    <label for="name">Имя сотрудника:</label>
+    <input type="text" id="name" name="name" />
+    <br>
+    <label for="email">Почта:</label>
+    <input type="text" id="email" name="email">
+    <br>
+    <label for="phone_number">Номер телефона:</label>
+    <input type="text" id="phone_number" name="phone_number">
+    <br>
+    <label for="position">Должность:</label>
+    <input type="text" id="position" name="position">
+    <br>
+    <label for="department">Подразделение:</label>
+    <input type="text" id="department" name="department">
+    <br>
+    <label for="chief_id">id начальника:</label>
+    <input type="text" id="chief_id" name="chief_id">
+    <br>
+    <br>
+    <button class="bg-primary" type="submit">
+        <a style="color: white;">Сохранить</a>
+    </button>
+</form>
+{% endblock %}

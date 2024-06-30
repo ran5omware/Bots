@@ -1,0 +1,13 @@
+a {
+    text-decoration: none;
+}
+
+main .server{
+    color: #23FAED;
+}
+
+main .server:hover{
+    color: #000;
+}
+
+

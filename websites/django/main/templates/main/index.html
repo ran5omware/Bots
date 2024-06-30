@@ -1,0 +1,19 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+    <div class="features">
+        <h1 class="glav" style="font-family: Courier New">-ГЛАВНАЯ СТРАНИЦА-</h1>
+        <p></p>
+    </div>
+
+    <div class="alert alert-light" style="font-family: Courier New">
+        <h3>Последняя новость</h3>
+            <ul>
+                {% for news_item in latest_news %}
+                    <a href="{% url 'news_detail' news_item.id  %}" class="btn btn-outline-secondary">Перейти</a>
+                {% endfor %}
+            </ul>
+    </div>
+{% endblock %}

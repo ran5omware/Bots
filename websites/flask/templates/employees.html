@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>{% block title %} Сотрудники {% endblock %}</h1>
+<hr>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">ФИО</th>
+            <th scope="col">Почта</th>
+            <th scope="col">Номер телефона</th>
+            <th scope="col">Должность</th>
+            <th scope="col">Подразделение</th>
+            <th scope="col">id начальника</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for elem in employees %}
+            <tr>
+                <td scope="col">{{ elem['id'] }}</td>
+                <td scope="col" >{{ elem['name'] }}</td>
+                <td scope="col">{{ elem['email'] }}</td>
+                <td scope="col">{{ elem['phone_number'] }}</td>
+                <td scope="col">{{ elem['position'] }}</td>
+                <td scope="col">{{ elem['department'] }}</td>
+                <td scope="col">{{ elem['chief_id'] }}</td>
+                <td scope="col">
+                    <a href="{{ url_for('one_employee', employee_id=elem['id']) }}">Подробнее</a>
+                </td>
+
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<button class="bg-primary">
+    <a style="color: white;" href="{{ url_for('create_employee') }}">Добавить сотрудника</a>
+</button>
+{% endblock %}

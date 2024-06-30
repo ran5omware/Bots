@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>{% block title %} Создать Контракт {% endblock %}</h1>
+<form method="POST">
+    <label for="number">Номер Контракта:</label>
+    <input type="text" id="number" name="number" />
+    <br>
+    <label for="date">Дата:</label>
+    <input type="text" id="date" name="date">
+    <br>
+    <label for="deal_type">Тип сделки:</label>
+    <input type="text" id="deal_type" name="deal_type">
+    <br>
+    <label for="deal_status">Статус:</label>
+    <input type="text" id="deal_status" name="deal_status">
+    <br>
+    <label for="start_price">Начальная цена:</label>
+    <input type="text" id="start_price" name="start_price">
+    <br>
+    <label for="discount">Скидка:</label>
+    <input type="text" id="discount" name="discount">
+    <br>
+    <label for="id">ID товара:</label>
+    <input type="text" id="id" name="id">
+    <br>
+    <label for="finall_price">Конечная цена:</label>
+    <input type="text" id="finall_price" name="finall_price">
+    <br>
+    <label for="client_id">Id клиента:</label>
+    <input type="text" id="client_id" name="client_id">
+    <br>
+    <label for="employee_id">Id сотрудника:</label>
+    <input type="text" id="employee_id" name="employee_id">
+    <br>
+    <br>
+    <button class="bg-primary" type="submit">
+        <a style="color: white;">Сохранить</a>
+    </button>
+</form>
+{% endblock %}

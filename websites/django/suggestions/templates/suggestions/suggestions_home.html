@@ -1,0 +1,22 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}Предложения{% endblock %}
+
+{% block content %}
+    <div class="features">
+        <h1 style="font-family: Courier New">-Предложения-</h1>
+        {% if suggestions %}
+        {% for el in suggestions %}
+            <div class="alert alert-warning">
+                <h3>{{ el.title }}</h3>
+                <p>{{ el.text }}</p>
+                <a href="{% url 'suggestions_detail' el.id %}" class="btn btn-warning">Открыть</a>
+            </div>
+
+        {% endfor %}
+
+        {% else %}
+        <p>Пока что нет предложений!</p>
+        {% endif %}
+    </div>
+{% endblock %}

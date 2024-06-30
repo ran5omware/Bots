@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>{% block title %} Создать договор № 0 от 08.06.2024 {% endblock %}</h1>
+<form method="POST">
+    <label for="name">ФИО клиента:</label>
+    <input type="text" id="name" name="name" />
+    <br>
+    <label for="passport">Паспорт клиента:</label>
+    <input type="text" id="passport" name="passport">
+    <br>
+    <label for="id">Номер компьютера:</label>
+    <input type="text" id="id" name="id">
+    <br>
+    <br>
+    <button class="bg-primary" type="submit">
+        <a style="color: white;">Сохранить</a>
+    </button>
+</form>
+{% endblock %}

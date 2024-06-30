@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>{% block title %} Сведения о клиенте {{ client['name'] }} {% endblock %}</h1>
+<div>
+    <h3>Почта: {{client['email']}}</h3>
+    <h3>Номер телефона: {{client['phone_number']}}</h3>
+    <h3>Паспорт: {{client['passport']}}</h3>
+</div>
+<button class="bg-danger">
+    <!-- {{ remove_client(client['id']) }} -->
+    <a style="color: white;" href="{{ url_for('client') }}">Удалить клиента</a>
+</button>
+{% endblock %}

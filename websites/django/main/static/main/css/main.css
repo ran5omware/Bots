@@ -1,0 +1,162 @@
+body {
+    background: url(../img/back.png);
+    background-size: 85% 100%;
+    background-position: right
+}
+
+aside {
+    float: left;
+    background: #181818;
+    width: 15%;
+    padding: 2.5%;
+    height: 100vh;
+    color: #fff;
+    border-right: 5px solid #4d4d4d;
+    text-decoration: none;
+    border-color: #A50382;
+}
+
+aside img {
+    width: 80px;
+    float: left;
+}
+
+aside .logo {
+    font-size: 40px;
+    margin-left: 10px;
+    font-family: cursive;
+    position: relative;
+    top: +10px;
+}
+
+aside .navi {
+    margin-top: 50px;
+    margin-left: 20px;
+    font-size: 25px;
+    text-decoration: none;
+}
+
+aside ul {
+    list-style: none;
+    text-decoration: none;
+}
+
+aside ul li{
+    color: #fff;
+    display: block;
+    margin-top: 13px;
+    transition: transform .4s ease;
+    text-decoration: none;
+}
+
+aside ul li:hover, aside ul a:hover {
+    color: #ed4adf;
+    transform: scale(1.05);
+    text-decoration: none;
+}
+
+main .features {
+    float: left;
+    color: #23FAED;
+    margin-top: 100px;
+    text-align: center;
+    width: 75%;
+    position: center;
+}
+
+main .features h1 {
+    font-size: 70px;
+    color: #fff;
+    margin-top: -15px;
+}
+main .features p {
+    max-width: 400px;
+    margin: 20px auto;
+}
+
+.alert-warning {
+    float: left;
+    clear: both;
+    width: 400px;
+    margin: 20px 34%;
+    text-align: left;
+}
+
+.btn-info {
+    width: 140px;
+    font-size: 15px;
+    text-align: left;
+
+}
+
+form {
+    margin-left: 32%;
+    width: 500px;
+    margin-top: 50px;
+}
+
+aside .invite {
+    margin-left: -60px;
+    width: 300px;
+    position: absolute;
+    bottom: 10px;
+}
+
+.invite:hover {
+    transform: scale(1.02);
+}
+
+.logo {
+    color: #a50382;
+    text-decoration-line: none;
+}
+
+.logoname:hover {
+    color: #b74aed;
+}
+
+.alert-light {
+    float: right;
+    width: 300px;
+    height: 120px;
+    margin-top: 575px;
+    margin-right: 20px;
+    background-color: #0DCAF0;
+    border-color: #0DCAF0;
+    border-width: 4px ;
+    color: #000;
+}
+
+.btn-outline-secondary {
+    background-color: #BDBDBD;
+    border-color: #BDBDBD;
+    margin-left: 150px;
+    margin-top: -18px;
+    color: #000;
+    transition: transform .4s ease;
+}
+
+.btn-outline-secondary:hover{
+    background-color: #BDBDBD;
+    border-color: #BDBDBD;
+    transform: scale(1.04);
+}
+
+main .contacts {
+    text-decoration-line: none;
+    position: top;
+    list-style: none;
+    color: #23FAED;
+}
+
+main .btn-warning{
+    margin-top: 20px;
+}
+
+aside .navig{
+    margin-top: 45px;
+}
+
+aside .btn-info{
+    margin-top: 20px;
+}
